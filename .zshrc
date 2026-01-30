@@ -76,3 +76,14 @@ bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+
+# --- VTE FIX FOR TILIX ---
+# This ensures that new tabs/tiles open in the same directory
+if [ "$TILIX_ID" ] || [ "$VTE_VERSION" ]; then
+    # Check if the file exists before sourcing to prevent errors
+    if [ -f /etc/profile.d/vte-2.91.sh ]; then
+        source /etc/profile.d/vte-2.91.sh
+    elif [ -f /etc/profile.d/vte.sh ]; then
+        source /etc/profile.d/vte.sh
+    fi
+fi
