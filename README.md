@@ -14,33 +14,32 @@ Before installing, ensure you have Zsh installed:
 ```bash
 sudo apt update && sudo apt install zsh git -y
 
-##🚀 Installation
-
-###1. Clone the plugins
+🚀 Installation
+1. Clone the plugins
 
 This config relies on two essential plugins. Run these commands to download them:
 Bash
-```
+
 mkdir -p ~/.zsh
 git clone [https://github.com/zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) ~/.zsh/zsh-autosuggestions
 git clone [https://github.com/zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) ~/.zsh/zsh-syntax-highlighting
-```
-###2. Apply the configuration
+
+2. Apply the configuration
 
 Clone this repository and link the config file:
 Bash
-```
+
 git clone [https://github.com/sofonyas66/dotfiles.git](https://github.com/sofonyas66/dotfiles.git) ~/dotfiles
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
-```
-###3. Set Zsh as default
+
+3. Set Zsh as default
 
 Change your default shell and restart your terminal:
 Bash
-```
+
 sudo chsh -s $(which zsh) $USER
-```
-##⌨️ Useful Shortcuts
+
+⌨️ Useful Shortcuts
 
     .. , ... , .... : Fast directory navigation.
 
@@ -53,4 +52,3 @@ sudo chsh -s $(which zsh) $USER
     ports : See all active listening network ports.
 
 Maintained by sofonyas66
-
