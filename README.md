@@ -1,54 +1,103 @@
-# 🦜 Parrot OS Dotfiles (Zsh Config)
+# Dotfiles — Zsh Config
 
-A high-performance, lightweight Zsh configuration optimized for **Parrot OS**. This setup focuses on speed, security, and developer productivity without the bloat of heavy frameworks.
+A high-performance, lightweight Zsh configuration optimized for **Parrot OS** and **Arch Linux**. This setup focuses on speed, security, and developer productivity without the bloat of heavy frameworks.
+
+---
 
 ## ✨ Features
-- **Intelligent Prompt:** Color-coded for User/Root and displays current Git branch.
-- **Auto-Suggestions:** Fish-like "ghost" text suggestions based on your history.
-- **Syntax Highlighting:** Real-time feedback (Green for valid commands, Red for errors).
-- **Pro Aliases:** Shortcuts for system updates, networking, and safe file management.
-- **Infinite History:** Shared history across all open terminal windows.
+
+- **Intelligent Prompt** — Color-coded for User/Root and displays current Git branch.
+- **Auto-Suggestions** — Fish-like "ghost" text suggestions based on your history.
+- **Syntax Highlighting** — Real-time feedback (Green for valid commands, Red for errors).
+- **Pro Aliases** — Shortcuts for system updates, networking, and safe file management.
+- **Infinite History** — Shared history across all open terminal windows.
+- **Multi-distro Support** — Works on both Parrot OS (apt) and Arch Linux (pacman).
+
+---
 
 ## 🛠️ Prerequisites
-Before installing, ensure you have Zsh installed:
+
+### Parrot OS
 ```bash
 sudo apt update && sudo apt install zsh git -y
+```
 
-🚀 Installation
-1. Clone the plugins
+### Arch Linux
+```bash
+sudo pacman -S zsh git
+```
 
-This config relies on two essential plugins. Run these commands to download them:
-Bash
+---
 
+## 🚀 Installation
+
+### 1. Clone the plugins
+
+```bash
 mkdir -p ~/.zsh
-git clone [https://github.com/zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) ~/.zsh/zsh-autosuggestions
-git clone [https://github.com/zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) ~/.zsh/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
+```
 
-2. Apply the configuration
+### 2. Apply the configuration
 
-Clone this repository and link the config file:
-Bash
-
-git clone [https://github.com/sofonyas66/dotfiles.git](https://github.com/sofonyas66/dotfiles.git) ~/dotfiles
+```bash
+git clone https://github.com/sofonyas66/dotfiles.git ~/dotfiles
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
+```
 
-3. Set Zsh as default
+### 3. Set Zsh as default
 
-Change your default shell and restart your terminal:
-Bash
+```bash
+chsh -s $(which zsh)
+```
 
-sudo chsh -s $(which zsh) $USER
+Then restart your terminal.
 
-⌨️ Useful Shortcuts
+---
 
-    .. , ... , .... : Fast directory navigation.
+## ⌨️ Useful Shortcuts
 
-    update : Full Parrot OS system update and upgrade.
+| Alias | Description |
+|-------|-------------|
+| `..` , `...` , `....` | Fast directory navigation |
+| `update` | Full system update (auto-detects distro) |
+| `reload` | Instantly apply changes made to `.zshrc` |
+| `myip` | Quickly check your public IP address |
+| `ports` | See all active listening network ports |
 
-    reload : Instantly apply changes made to .zshrc.
+---
 
-    myip : Quickly check your public IP address.
+## 🐧 Distro Detection
 
-    ports : See all active listening network ports.
+The config automatically detects your distro and uses the correct package manager:
 
-Maintained by sofonyas66
+```zsh
+if command -v pacman &>/dev/null; then
+    alias update='sudo pacman -Syu'
+elif command -v apt &>/dev/null; then
+    alias update='sudo apt update && sudo apt full-upgrade -y'
+fi
+```
+
+No manual changes needed — just install and go.
+
+---
+
+## 📁 File Structure
+
+```
+dotfiles/
+└── .zshrc        # Main Zsh configuration
+```
+
+---
+
+## 🖥️ Tested On
+
+- ✅ Parrot OS (Security Edition)
+- ✅ Arch Linux + XFCE
+
+---
+
+Maintained by [sofonyas66](https://github.com/sofonyas66)
