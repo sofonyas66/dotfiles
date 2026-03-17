@@ -30,6 +30,14 @@ sudo pacman -S zsh git
 
 ## 🚀 Installation
 
+### One Command Installation
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/sofonyas66/dotfiles/main/install.sh)
+```
+This downloads and runs the installer automatically.
+
+## Manual Installation
+
 ### 1. Clone the plugins
 ```bash
 mkdir -p ~/.zsh
