@@ -1,5 +1,4 @@
 # Dotfiles — Zsh Config
-
 A high-performance, lightweight Zsh configuration optimized for **Parrot OS** and **Arch Linux**. This setup focuses on speed, security, and developer productivity without the bloat of heavy frameworks.
 
 ---
@@ -32,7 +31,6 @@ sudo pacman -S zsh git
 ## 🚀 Installation
 
 ### 1. Clone the plugins
-
 ```bash
 mkdir -p ~/.zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
@@ -40,14 +38,12 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax
 ```
 
 ### 2. Apply the configuration
-
 ```bash
 git clone https://github.com/sofonyas66/dotfiles.git ~/dotfiles
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ```
 
 ### 3. Set Zsh as default
-
 ```bash
 chsh -s $(which zsh)
 ```
