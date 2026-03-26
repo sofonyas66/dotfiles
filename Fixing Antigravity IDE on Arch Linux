@@ -1,0 +1,53 @@
+Fixing Antigravity IDE on Legacy CPUs (Arch Linux)
+The Problem
+Antigravity IDE (and its language server) requires AES-NI CPU instructions. If your CPU doesn't support them (common on older Intel/AMD chips), the IDE will crash with SIGILL (Illegal Instruction) or Signal 4. On Arch Linux, this also manifests as a "Code 127" error if the necessary emulator isn't found.
+The Fix: QEMU User-Mode Emulation
+1. Install Requirements
+You need the QEMU user-mode emulator and some compatibility libraries for Arch:
+bash
+
+sudo pacman -S qemu-user qemu-user-binfmt libxcrypt-compat xdg-utils
+
+Use code with caution.
+2. Locate the Binary
+Find where the language server is installed. Usually:
+/opt/Antigravity/resources/app/extensions/antigravity/bin/language_server_linux_x64
+3. Apply the Shim
+Move the original binary and replace it with a script that emulates the missing instructions:
+bash
+
+# Navigate to the bin directory
+cd /opt/Antigravity/resources/app/extensions/antigravity/bin/
+
+# Rename the original binary
+sudo mv language_server_linux_x64 language_server_linux_x64.real
+
+# Create the shim script
+sudo nano language_server_linux_x64
+
+Use code with caution.
+Paste the following into the script:
+bash
+
+#!/bin/bash
+DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+# Emulates a Westmere CPU (which supports AES-NI) using the absolute path to QEMU
+exec /usr/bin/qemu-x86_64 -cpu Westmere "$DIR/language_server_linux_x64.real" "$@"
+
+Use code with caution.
+4. Set Permissions
+bash
+
+sudo chmod +x language_server_linux_x64
+sudo chmod +x language_server_linux_x64.real
+
+Use code with caution.
+5. Launch the IDE
+If you encounter UI issues or unclickable buttons, launch with these flags to bypass sandbox/GPU conflicts:
+bash
+
+antigravity --no-sandbox --disable-gpu --ozone-platform=x11
+
+Use code with caution.
+Why this works
+The shim intercepts the IDE's call to the language server and runs it through qemu-x86_64. By specifying -cpu Westmere, we tell QEMU to provide a virtual CPU that supports the AES instructions the binary expects, even though the physical hardware lacks them.
